@@ -1,0 +1,8 @@
+---
+- name: list available modules
+  shell: /bin/lsblk -dniro NAME | /bin/grep -v "sda\|xvda" | /usr/bin/awk '$0="/dev/"$0' | /usr/bin/sort -n
+  register: volumes
+
+- name: build lvm
+  include: lvm.yml
+  when: volumes.result

@@ -1,0 +1,23 @@
+---
+- name: create volume group
+  lvg:
+    vg: firefly
+    pvs: "{{ ','.join(volumes.result) }}"
+
+- name: create logical volume
+  lvol:
+    vg: firefly
+    lv: local
+    size: 100%PVS
+
+- name: create filesystem
+  filesystem:
+    fstype: ext4
+    dev: /dev/firefly/local
+
+- name: mount lvm
+  mount:
+    name: /mnt/local/
+    src: /dev/firefly/local
+    fstype: ext4
+    state: mounted
