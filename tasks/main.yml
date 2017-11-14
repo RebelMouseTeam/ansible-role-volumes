@@ -4,6 +4,7 @@
   register: volumes
   changed_when: no
 
-- name: build lvm
-  include: lvm.yml
+- include: lvm.yml
   when: volumes.stdout_lines
+
+- include: swapfile
