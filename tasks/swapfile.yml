@@ -1,13 +1,16 @@
 ---
-- set_fact:
+- name: define swapfile as /mnt/local/swapfile
+  set_fact:
     swapfile_location: /mnt/local/swapfile
   when: volumes.stdout_lines
 
-- set_fact:
+- name: define swapfile as /mnt/swapfile
+  set_fact:
     swapfile_location: /mnt/swapfile
   when: not volumes.stdout_lines
 
-- set_fact:
+- name: define swapfile size
+  set_fact:
     swapfile_size: "{{ ansible_memtotal_mb }}MB"
   when: not swapfile_size
 
