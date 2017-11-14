@@ -5,4 +5,4 @@
 
 - name: build lvm
   include: lvm.yml
-  when: volumes.result
+  when: volumes.stdout_lines
