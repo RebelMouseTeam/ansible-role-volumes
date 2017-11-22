@@ -6,7 +6,8 @@
   changed_when: no
 
 - name: get root disk
-  shell: "/bin/lsblk -asniro NAME,TYPE {{ root_partition.stdout_lines.strip() }} | grep disk | awk '{ print $1 }' | awk '$0="/dev/"$0'"
+  shell: |
+    /bin/lsblk -asniro NAME,TYPE {{ root_partition.stdout_lines.strip() }} | grep disk | awk '{ print $1 }' | awk '$0="/dev/"$0'
   register: root_disk
   changed_when: no
 
