@@ -1,6 +1,6 @@
 ---
 swapfile_location:
 swapfile_size:
-swapfile_swappiness: False
-swapfile_vfs_cache_pressure: False
+swapfile_swappiness: 10
+swapfile_vfs_cache_pressure: 50
 swapfile_use_dd: False
