@@ -7,17 +7,17 @@
 
 - name: get root disk
   shell: |
-    /bin/lsblk -asniro NAME,TYPE {{ root_partition.stdout_lines.strip() }} | grep disk | awk '{ print $1 }' | awk '$0="/dev/"$0'
+    /bin/lsblk -asniro NAME,TYPE {{ root_partition.stdout.strip() }} | grep disk | awk '{ print $1 }' | awk '$0="/dev/"$0'
   register: root_disk
   changed_when: no
 
 - name: list available modules
   shell: |
-    /bin/lsblk -dniro NAME | /bin/grep -v "{{ root_disk.stdout_lines.strip() }}" | /usr/bin/awk '$0="/dev/"$0' | /usr/bin/sort -n
+    /bin/lsblk -dniro NAME | /bin/grep -v "{{ root_disk.stdout.strip() }}" | /usr/bin/awk '$0="/dev/"$0' | /usr/bin/sort -n
   register: volumes
   changed_when: no
 
 - include: lvm.yml
-  when: volumes.stdout_lines
+  when: volumes.stdout.strip()
 
 - include: swapfile.yml
