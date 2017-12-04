@@ -1,13 +1,7 @@
 ---
-- name: get root partition
-  shell: |
-    /bin/lsblk -niro MOUNTPOINT,NAME | /bin/grep "/ " | /usr/bin/awk '{ print $2 }' | /usr/bin/awk '$0="/dev/"$0'
-  register: root_partition
-  changed_when: no
-
 - name: get root disk
   shell: |
-    /bin/lsblk -asniro NAME,TYPE {{ root_partition.stdout.strip() }} | grep disk | awk '{ print $1 }'
+    /bin/lsblk -niro MOUNTPOINT,NAME | /bin/grep -B 1 "/ " | /usr/bin/head -n 1 | /usr/bin/awk '{ print $1 }'
   register: root_disk
   changed_when: no
 
