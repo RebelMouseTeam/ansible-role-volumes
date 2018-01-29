@@ -49,7 +49,7 @@
     value: "{{ swapfile_swappiness }}"
   when: swapfile_swappiness != false
 
-- name: configure vm.swappiness
+- name: configure vm.vfs_cache_pressure
   sysctl:
     state: present
     reload: yes
